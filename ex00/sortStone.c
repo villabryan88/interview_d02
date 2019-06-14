@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "header.h"
+#include <stdio.h>
 
 void stone_swap(struct s_stone **curr_adr){
 	struct s_stone *curr = *curr_adr;
@@ -30,16 +31,14 @@ void sortStones(struct s_stone **stone){
 		return ;
 	while (swapped)
 	{
-		curr = stone;
 		swapped = 0;
-		for (struct s_stone *i = *stone; i->next; i = i->next)
+		for (curr = stone; (*curr)->next; curr = &((*curr)->next))
 		{
-			if((*curr)->size > (i->next)->size)
+			if((*curr)->size > ((*curr)->next)->size)
 			{
 				stone_swap(curr);
 				swapped = 1;
 			}
-			curr = &(i->next);
 		}
 	}	
 }
