@@ -13,36 +13,64 @@
 #include "header.h"
 #include <stdio.h>
 
-void stone_swap(struct s_stone **curr_adr){
+void stone_swap(struct s_stone **curr_adr, struct s_stone **curr_nexp, struct s_stone **next_nexp){
 	struct s_stone *curr = *curr_adr;
-	struct s_stone *next = curr->next;
-	struct s_stone *next_next = next->next;
+	struct s_stone *next = *curr_nexp;
+	struct s_stone *next_next = *next_nexp;
 
 	*curr_adr = next;
-	(*curr_adr)->next = curr;
-	(*curr_adr)->next->next = next_next;
-}
+	*next_nexp = curr;
+	*curr_nexp = next_next;
+} 
 
 void sortStones(struct s_stone **stone){
 	int	 n = 0;
 	int  last = -1;
 	int	 stop;
+	int  swapped = 0;
+	struct s_stone **next;
 	struct s_stone **curr;
+	struct s_stone **next_next;
 
 	if (!stone || !*stone || !(*stone)->next)
 		return ;
 	while (last == -1 || last > 0)
 	{
+
 		n = 0;
 		stop = last;
 		last = 0;
-		for (curr = stone; n != stop && (*curr)->next; curr = &((*curr)->next))
-		{
-			if((*curr)->size > ((*curr)->next)->size)
-			{
-				stone_swap(curr);
-				last = n;
+		curr = stone;
+		next = &((*curr)->next);
+		while (n != stop && *next) 
+		{	
+			// while (*next && (*curr)->size = (*next)->size))
+			// 	next = &((*next)->next);
+			if(*next)
+			{	
+				next_next = &((*next)->next);
+				if(*next && (*curr)->size > (*next)->size)
+				{
+					// while(*next_next && (*next)->size = (*next_next)->size)
+					// 	next_next = &((*next_next)->next);
+
+					stone_swap(curr, next, next_next);
+					swapped = 1;
+					last = n;
+				}
 			}
+			if (swapped)
+			{
+			next = next;
+			curr = next_next;
+			swapped = 0;
+			}
+			else
+			{
+				next = &((*curr)->next->next);
+				curr = &((*curr)->next);
+			}
+
 			n++;
 		}
 	}
