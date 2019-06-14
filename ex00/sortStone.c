@@ -55,7 +55,6 @@ void sortStones(struct s_stone **stone){
 						next_next = &((*next_next)->next);
 
 					stone_swap(curr, next, next_next);
-					printf("swap\n");
 					swapped = 1;
 					last = n;
 				}
