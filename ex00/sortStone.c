@@ -67,8 +67,8 @@ void sortStones(struct s_stone **stone){
 			}
 			else
 			{
-				next = &((*curr)->next->next);
-				curr = &((*curr)->next);
+				cutt = next;
+				next = next_next;
 			}
 
 			n++;
