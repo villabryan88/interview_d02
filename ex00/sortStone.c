@@ -44,17 +44,18 @@ void sortStones(struct s_stone **stone){
 		next = &((*curr)->next);
 		while (n != stop && *next) 
 		{	
-			// while (*next && (*curr)->size = (*next)->size))
-			// 	next = &((*next)->next);
+			while (*next && (*curr)->size == (*next)->size)
+				next = &((*next)->next);
 			if(*next)
 			{	
 				next_next = &((*next)->next);
 				if(*next && (*curr)->size > (*next)->size)
 				{
-					// while(*next_next && (*next)->size = (*next_next)->size)
-					// 	next_next = &((*next_next)->next);
+					while(*next_next && (*next)->size == (*next_next)->size)
+						next_next = &((*next_next)->next);
 
 					stone_swap(curr, next, next_next);
+					printf("swap\n");
 					swapped = 1;
 					last = n;
 				}
@@ -67,7 +68,7 @@ void sortStones(struct s_stone **stone){
 			}
 			else
 			{
-				cutt = next;
+				curr = next;
 				next = next_next;
 			}
 
