@@ -24,21 +24,26 @@ void stone_swap(struct s_stone **curr_adr){
 }
 
 void sortStones(struct s_stone **stone){
-	char swapped = 1;
+	int	 n = 0;
+	int  last = -1;
+	int	 stop;
 	struct s_stone **curr;
 
 	if (!stone || !*stone || !(*stone)->next)
 		return ;
-	while (swapped)
+	while (last == -1 || last > 0)
 	{
-		swapped = 0;
-		for (curr = stone; (*curr)->next; curr = &((*curr)->next))
+		n = 0;
+		stop = last;
+		last = 0;
+		for (curr = stone; n != stop && (*curr)->next; curr = &((*curr)->next))
 		{
 			if((*curr)->size > ((*curr)->next)->size)
 			{
 				stone_swap(curr);
-				swapped = 1;
+				last = n;
 			}
+			n++;
 		}
-	}	
-}
+	}
+}	
