@@ -6,18 +6,13 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 21:19:24 by victor            #+#    #+#             */
-/*   Updated: 2019/06/14 21:56:33 by victor           ###   ########.fr       */
+/*   Updated: 2019/06/14 21:59:55 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-void swap_players(struct s_player **a, struct s_player **b){
-    struct s_player *tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
+#include <stdlib.h>
+#include <string.h>
 
 void    gen_mergesort(struct s_player **players, int lo, int hi, struct s_player **aux){
     int mid;
@@ -30,9 +25,9 @@ void    gen_mergesort(struct s_player **players, int lo, int hi, struct s_player
     for (int i = lo; i <= hi; i++)
     {
         if (j > hi || (lo < mid && aux[lo]->score >= aux[j]->score))
-            players[i] = aux[lo++]->score;
+            players[i] = aux[lo++];
         else
-            players[i] = aux[j++]->score;
+            players[i] = aux[j++];
     }
 }
 
@@ -45,4 +40,6 @@ struct s_player **mergeSort(struct s_player **players){
     memcpy(aux, players, sizeof(struct s_player*) * len);
     aux[len] = 0;
     gen_mergesort(players, 0, len - 1, aux);
+    free(aux);
+    return (players);
 }
