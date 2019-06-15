@@ -1,0 +1,2 @@
+o(n) time
+o(n + k) space; k is the number of uniqe keys;
