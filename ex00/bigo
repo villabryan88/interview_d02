@@ -1,0 +1,2 @@
+o(n^2) time where n is the number of groups of same sized rocks next to eachother
+o(1) space 
